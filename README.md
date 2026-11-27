@@ -1,25 +1,24 @@
 # dateapp 💌
 
-A one-page, mobile-first "will you go on a date with me?" app.
+A one-page, mobile-first date invitation (in Hungarian), addressed to Beáta.
 
-1. **Yes / No** – the No button can't be pressed: it runs away whenever someone tries, and the Yes button grows a bit each time.
+1. **Igen / Nem** – the "Nem" button can't be pressed: it runs away whenever someone tries, and "Igen" grows a bit each time.
 2. **Calendar** – pick a day (past days are disabled; swipe or use the arrows to change month) and a time.
-3. **Program** – Glühwein & ice skating, romantic dinner & casino, or stargazing with a telescope.
-4. **Summary** – she can send her answer back to you (WhatsApp, or the phone's share sheet) and add the date to her calendar.
+3. **Program** – forralt bor és korcsolyázás, romantikus vacsora és kaszinó, or csillagnézés teleszkóppal.
+4. **Summary** – she can send her answer back (WhatsApp, or the phone's share menu) and add the date to her calendar.
 
-## Personalise the link
+## Settings
 
-Add these to the end of the URL (all optional):
+At the top of the `<script>` in `index.html`:
 
-| Parameter | Example | Effect |
-|---|---|---|
-| `name` | `?name=Anna` | "Anna, will you go on a date with me?" |
-| `from` | `&from=Boti` | Button reads "Send Boti my answer" |
-| `phone` | `&phone=36301234567` | Answer opens WhatsApp straight to this number (country code, digits only) |
+- `NAME` – the name in the question (`"Beáta"`).
+- `PHONE` – optional WhatsApp number (country code, digits only, e.g. `"36301234567"`). Empty = the phone's share menu opens.
 
-Example: `https://nagybotondvilmos.github.io/dateapp/?name=Anna&from=Boti&phone=36301234567`
+## Hosting with a neutral URL (GitHub Pages)
 
-## Hosting (GitHub Pages)
+The repository name ends up in the Pages URL, so to keep the link from giving anything away:
 
-Repo **Settings → Pages → Build and deployment → Source: Deploy from a branch → `main` / `(root)` → Save**.
-After a minute the site is at `https://nagybotondvilmos.github.io/dateapp/`.
+1. **Settings → General → Repository name** → rename to `nagybotondvilmos.github.io` → Rename.
+2. **Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save**.
+
+The site is then at `https://nagybotondvilmos.github.io/` – nothing in the link hints at what it is.

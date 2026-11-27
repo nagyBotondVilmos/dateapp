@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="hu">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1030">
-<title>A little question</title>
-<meta name="description" content="I have a little question for you…">
-<meta property="og:title" content="A little question 💌">
-<meta property="og:description" content="I have a little question for you…">
+<title>Van egy kérdésem</title>
+<meta name="description" content="Van egy kis kérdésem hozzád…">
+<meta property="og:title" content="Van egy kérdésem 💌">
+<meta property="og:description" content="Van egy kis kérdésem hozzád…">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -233,11 +233,11 @@
   <!-- STEP 1: the question -->
   <section class="step active" id="step-ask">
     <div class="emoji-hero">💌</div>
-    <h1 id="askTitle">Will you go on a <em>date</em> with me?</h1>
-    <p class="sub">Choose wisely… (there's only one right answer)</p>
+    <h1 id="askTitle">Elmennél velem egy <em>randira?</em></h1>
+    <p class="sub">Gondold meg jól… (csak egy jó válasz van)</p>
     <div class="yn" id="yn">
-      <button class="btn" id="yesBtn" type="button">Yes! 💖</button>
-      <button class="btn" id="noBtn" type="button" tabindex="-1" aria-disabled="true">No</button>
+      <button class="btn" id="yesBtn" type="button">Igen! 💖</button>
+      <button class="btn" id="noBtn" type="button" tabindex="-1" aria-disabled="true">Nem</button>
     </div>
     <div class="tease" id="tease" aria-live="polite"></div>
   </section>
@@ -245,33 +245,33 @@
   <!-- STEP 2: calendar -->
   <section class="step" id="step-date">
     <div class="progress"><span class="on"></span><span></span><span></span></div>
-    <h2>Yay! When are you <em>free</em>?</h2>
-    <p class="sub">Pick a day that works for you</p>
+    <h2>Juhú! Mikor érsz <em>rá?</em></h2>
+    <p class="sub">Válassz egy napot, ami jó neked</p>
     <div class="card">
       <div class="cal-head">
-        <button class="cal-nav" id="prevMonth" type="button" aria-label="Previous month">‹</button>
+        <button class="cal-nav" id="prevMonth" type="button" aria-label="Előző hónap">‹</button>
         <div class="cal-title" id="calTitle"></div>
-        <button class="cal-nav" id="nextMonth" type="button" aria-label="Next month">›</button>
+        <button class="cal-nav" id="nextMonth" type="button" aria-label="Következő hónap">›</button>
       </div>
       <div class="cal-grid" id="calGrid"></div>
     </div>
-    <div class="label">What time?</div>
+    <div class="label">Hánykor?</div>
     <div class="chips" id="timeChips"></div>
     <div class="actions">
-      <button class="btn ghost" type="button" data-back="step-ask" aria-label="Back">←</button>
-      <button class="btn" id="toProgram" type="button" disabled>Next</button>
+      <button class="btn ghost" type="button" data-back="step-ask" aria-label="Vissza">←</button>
+      <button class="btn" id="toProgram" type="button" disabled>Tovább</button>
     </div>
   </section>
 
   <!-- STEP 3: program -->
   <section class="step" id="step-program">
     <div class="progress"><span class="on"></span><span class="on"></span><span></span></div>
-    <h2>Pick our <em>adventure</em></h2>
-    <p class="sub" id="programSub">What sounds best?</p>
+    <h2>Válaszd ki a <em>programot</em></h2>
+    <p class="sub" id="programSub">Mi tetszik a legjobban?</p>
     <div class="programs" id="programs"></div>
     <div class="actions">
-      <button class="btn ghost" type="button" data-back="step-date" aria-label="Back">←</button>
-      <button class="btn" id="toDone" type="button" disabled>It's a date!</button>
+      <button class="btn ghost" type="button" data-back="step-date" aria-label="Vissza">←</button>
+      <button class="btn" id="toDone" type="button" disabled>Legyen ez! 💖</button>
     </div>
   </section>
 
@@ -279,14 +279,14 @@
   <section class="step" id="step-done">
     <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span></div>
     <div class="emoji-hero">🥰</div>
-    <h2>It's a <em>date!</em></h2>
-    <p class="sub">Can't wait. Here's the plan:</p>
+    <h2>Akkor ez egy <em>randi!</em></h2>
+    <p class="sub">Már alig várom. Íme a terv:</p>
     <div class="card summary" id="summary"></div>
     <div class="final-actions">
-      <button class="btn block" id="sendBtn" type="button">Send my answer 💌</button>
-      <button class="btn ghost block" id="icsBtn" type="button">📅 Add to my calendar</button>
+      <button class="btn block" id="sendBtn" type="button">Elküldöm a válaszom 💌</button>
+      <button class="btn ghost block" id="icsBtn" type="button">📅 Beírom a naptáramba</button>
     </div>
-    <button class="link-btn" type="button" data-back="step-program">Change something</button>
+    <button class="link-btn" type="button" data-back="step-program">Valamit módosítanék</button>
   </section>
 </main>
 
@@ -294,22 +294,23 @@
 
 <script>
 (() => {
-  // ---------- Personalisation via URL ----------
-  // ?name=Anna      -> "Anna, will you go on a date with me?"
-  // ?from=Boti      -> "Send Boti my answer"
-  // ?phone=36301234567 -> WhatsApp goes straight to this number (digits, country code, no +)
+  // ---------- Settings ----------
+  const NAME = "Beáta";
+  // Optional: your WhatsApp number (country code, digits only, e.g. "36301234567").
+  // Empty = the phone's normal share menu opens instead.
+  const PHONE = "";
+
   const params = new URLSearchParams(location.search);
-  const herName = (params.get("name") || "").trim();
-  const myName  = (params.get("from") || "").trim();
-  const phone   = (params.get("phone") || "").replace(/[^\d]/g, "");
+  const herName = (params.get("name") || NAME).trim();
+  const phone   = (params.get("phone") || PHONE).replace(/[^\d]/g, "");
 
   const PROGRAMS = [
-    { id: "gluhwein", icon: "⛸️", title: "Glühwein & ice skating",
-      desc: "Christmas market, a warm mug of Glühwein, then holding hands on the ice." },
-    { id: "dinner", icon: "🍷", title: "Romantic dinner & casino",
-      desc: "Candlelit dinner, then we try our luck at the roulette table." },
-    { id: "stars", icon: "🔭", title: "Stargazing with a telescope",
-      desc: "Blankets, hot cocoa, and the planets up close somewhere dark and quiet." },
+    { id: "gluhwein", icon: "⛸️", title: "Forralt bor és korcsolyázás",
+      desc: "Karácsonyi vásár, egy bögre forralt bor, aztán kéz a kézben a jégen." },
+    { id: "dinner", icon: "🍷", title: "Romantikus vacsora és kaszinó",
+      desc: "Gyertyafényes vacsora, utána szerencsét próbálunk a rulettasztalnál." },
+    { id: "stars", icon: "🔭", title: "Csillagnézés teleszkóppal",
+      desc: "Pokróc, forró csoki és közelről a bolygók, valahol egy sötét, csendes helyen." },
   ];
   const TIMES = ["16:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
   const MONTHS_AHEAD = 6;
@@ -320,10 +321,7 @@
 
   // ---------- Personalise text ----------
   if (herName) {
-    $("askTitle").innerHTML = `${escapeHtml(herName)}, will you go on a <em>date</em> with me?`;
-  }
-  if (myName) {
-    $("sendBtn").textContent = `Send ${myName} my answer 💌`;
+    $("askTitle").innerHTML = `${escapeHtml(herName)}, elmennél velem egy <em>randira?</em>`;
   }
 
   // ---------- Stars ----------
@@ -350,14 +348,14 @@
   const noBtn = $("noBtn");
   const tease = $("tease");
   const TEASES = [
-    "Hmm, that button seems shy 🙈",
-    "Nope, not an option 😌",
-    "Are you sure? Try the other one 👉",
-    "The No button is on vacation 🏖️",
-    "Error 404: 'No' not found",
-    "Nice try 😏",
-    "Your finger slipped, right?",
-    "It's getting bigger… just saying 💖",
+    "Hmm, ez a gomb kicsit félénk 🙈",
+    "Nem, ez nem opció 😌",
+    "Biztos? Próbáld a másikat 👉",
+    "A „Nem” gomb szabadságon van 🏖️",
+    "404-es hiba: a „Nem” nem található",
+    "Szép próbálkozás 😏",
+    "Megcsúszott az ujjad, ugye?",
+    "Egyre nagyobb… csak mondom 💖",
   ];
   let dodges = 0, lastDodge = 0;
 
@@ -420,7 +418,7 @@
   const maxMonth = new Date(today.getFullYear(), today.getMonth() + MONTHS_AHEAD, 1);
   let viewMonth = new Date(minMonth);
 
-  const DOW = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+  const DOW = ["H", "K", "Sze", "Cs", "P", "Szo", "V"];
 
   function renderCal() {
     const grid = $("calGrid");
@@ -430,7 +428,7 @@
       el.className = "dow"; el.textContent = d;
       grid.appendChild(el);
     });
-    $("calTitle").textContent = viewMonth.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+    $("calTitle").textContent = viewMonth.toLocaleDateString("hu-HU", { month: "long", year: "numeric" });
 
     const y = viewMonth.getFullYear(), m = viewMonth.getMonth();
     const firstDow = (new Date(y, m, 1).getDay() + 6) % 7; // Monday = 0
@@ -450,7 +448,7 @@
       if (+date === +today) btn.classList.add("today");
       if (date < today) btn.disabled = true;
       if (state.date && +date === +state.date) btn.classList.add("sel");
-      btn.setAttribute("aria-label", date.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" }));
+      btn.setAttribute("aria-label", date.toLocaleDateString("hu-HU", { weekday: "long", day: "numeric", month: "long" }));
       btn.addEventListener("click", () => {
         state.date = date;
         renderCal();
@@ -489,7 +487,7 @@
 
   function updateNext() { $("toProgram").disabled = !(state.date && state.time); }
   $("toProgram").addEventListener("click", () => {
-    $("programSub").textContent = `${fmtDate(state.date)} at ${state.time} — what sounds best?`;
+    $("programSub").textContent = `${fmtDate(state.date)}, ${state.time} – mi tetszik a legjobban?`;
     show("step-program");
   });
 
@@ -515,13 +513,13 @@
   // ---------- Step 4: Summary + send ----------
   function renderSummary() {
     $("summary").innerHTML = `
-      <div class="summary-row"><div class="ico">📅</div><div><small>When</small><strong>${fmtDate(state.date)}</strong></div></div>
-      <div class="summary-row"><div class="ico">🕰️</div><div><small>Time</small><strong>${state.time}</strong></div></div>
-      <div class="summary-row"><div class="ico">${state.program.icon}</div><div><small>What</small><strong>${state.program.title}</strong></div></div>`;
+      <div class="summary-row"><div class="ico">📅</div><div><small>Mikor</small><strong>${fmtDate(state.date)}</strong></div></div>
+      <div class="summary-row"><div class="ico">🕰️</div><div><small>Hánykor</small><strong>${state.time}</strong></div></div>
+      <div class="summary-row"><div class="ico">${state.program.icon}</div><div><small>Program</small><strong>${state.program.title}</strong></div></div>`;
   }
 
   function answerText() {
-    return `Yes! 💖 Let's go on a date!\n📅 ${fmtDate(state.date)} at ${state.time}\n${state.program.icon} ${state.program.title}`;
+    return `Igen! 💖 Menjünk randizni!\n📅 ${fmtDate(state.date)}, ${state.time}\n${state.program.icon} ${state.program.title}`;
   }
 
   $("sendBtn").addEventListener("click", async () => {
@@ -536,7 +534,7 @@
     }
     try {
       await navigator.clipboard.writeText(text);
-      toast("Copied! Paste it in a message 💌");
+      toast("Kimásolva! Illeszd be egy üzenetbe 💌");
     } catch {
       location.href = `https://wa.me/?text=${encodeURIComponent(text)}`;
     }
@@ -549,26 +547,25 @@
     const end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
     const f = (x) => `${x.getFullYear()}${pad(x.getMonth()+1)}${pad(x.getDate())}T${pad(x.getHours())}${pad(x.getMinutes())}00`;
     const stamp = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-    const who = myName ? ` with ${myName}` : "";
     const ics = [
       "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//dateapp//EN", "BEGIN:VEVENT",
       `UID:${Date.now()}@dateapp`, `DTSTAMP:${stamp}`,
       `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
-      `SUMMARY:💖 Date${who}: ${state.program.title}`,
+      `SUMMARY:💖 Randi: ${state.program.title}`,
       `DESCRIPTION:${state.program.desc}`,
-      "BEGIN:VALARM", "TRIGGER:-PT2H", "ACTION:DISPLAY", "DESCRIPTION:Date tonight 💖", "END:VALARM",
+      "BEGIN:VALARM", "TRIGGER:-PT2H", "ACTION:DISPLAY", "DESCRIPTION:Ma randi 💖", "END:VALARM",
       "END:VEVENT", "END:VCALENDAR",
     ].join("\r\n");
     const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
     const a = document.createElement("a");
-    a.href = url; a.download = "our-date.ics";
+    a.href = url; a.download = "randi.ics";
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 2000);
   });
 
   // ---------- Helpers ----------
   function fmtDate(d) {
-    return d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+    return d.toLocaleDateString("hu-HU", { month: "long", day: "numeric", weekday: "long" });
   }
   function pad(n) { return String(n).padStart(2, "0"); }
   function escapeHtml(s) {
