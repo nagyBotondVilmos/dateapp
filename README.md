@@ -12,13 +12,13 @@ A one-page, mobile-first date invitation (in Hungarian), addressed to Beáta.
 At the top of the `<script>` in `index.html`:
 
 - `NAME` – the name in the question (`"Beáta"`).
-- `PHONE` – optional WhatsApp number (country code, digits only, e.g. `"36301234567"`). Empty = the phone's share menu opens.
+- `PHONE` – number her answer goes to via WhatsApp / SMS (country code, digits only).
+- `EMAIL` – address for the "E-mailben" button.
 
-## Hosting with a neutral URL (GitHub Pages)
+## Hosting with a neutral URL
 
-The repository name ends up in the Pages URL, so to keep the link from giving anything away:
+The site is a single static `index.html`, so any static host works.
 
-1. **Settings → General → Repository name** → rename to `nagybotondvilmos.github.io` → Rename.
-2. **Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save**.
+**Netlify (free, custom name):** sign in at app.netlify.com with GitHub → Add new site → Import an existing project → GitHub → `dateapp` → Deploy. Then Site configuration → Change site name → pick a neutral name, e.g. `esti-csillagok` → `https://esti-csillagok.netlify.app`.
 
-The site is then at `https://nagybotondvilmos.github.io/` – nothing in the link hints at what it is.
+**GitHub Pages:** rename the repo to `nagybotondvilmos.github.io`, then Settings → Pages → Deploy from a branch → `main` / `(root)` → `https://nagybotondvilmos.github.io/`.
