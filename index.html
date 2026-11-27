@@ -199,6 +199,16 @@
   }
   .program.sel { border-color: var(--accent); background: var(--accent-soft); }
   .program.sel .check { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .custom-wrap { width: 100%; margin-top: 12px; animation: rise .3s ease; }
+  .custom-wrap[hidden] { display: none; }
+  .custom-wrap textarea {
+    width: 100%; resize: none;
+    background: rgba(255,255,255,0.06); color: var(--text);
+    border: 1.5px solid var(--accent); border-radius: 16px;
+    padding: 14px 16px; font: 400 16px/1.4 "Inter", system-ui, sans-serif; /* 16px stops iOS zoom */
+    outline: none;
+  }
+  .custom-wrap textarea::placeholder { color: var(--muted); }
 
   /* summary */
   .summary { text-align: left; display: flex; flex-direction: column; gap: 14px; }
@@ -272,6 +282,9 @@
     <h2>Válaszd ki a <em>programot</em></h2>
     <p class="sub" id="programSub">Mi tetszik a legjobban?</p>
     <div class="programs" id="programs"></div>
+    <div class="custom-wrap" id="customWrap" hidden>
+      <textarea id="customText" rows="2" maxlength="120" placeholder="pl. bowling, mozi, egy hosszú séta a Duna-parton…" aria-label="Milyen programot szeretnél?"></textarea>
+    </div>
     <div class="actions">
       <button class="btn ghost" type="button" data-back="step-date" aria-label="Vissza">←</button>
       <button class="btn" id="toDone" type="button" disabled>Legyen ez! 💖</button>
@@ -502,16 +515,37 @@
 
   // ---------- Step 3: Programs ----------
   const progWrap = $("programs");
-  PROGRAMS.forEach((p) => {
+  const customWrap = $("customWrap");
+  const customText = $("customText");
+  const CUSTOM = { id: "custom", icon: "✨", title: "Valami mást szeretnék",
+    desc: "Írd le, mihez lenne kedved – benne vagyok!" };
+
+  function customProgram() {
+    return { id: "custom", icon: "✨", title: customText.value.trim(), desc: "Beáta ötlete ✨" };
+  }
+  function updateDone() {
+    $("toDone").disabled = !state.program || (state.program.id === "custom" && !customText.value.trim());
+  }
+
+  [...PROGRAMS, CUSTOM].forEach((p) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "program";
     b.innerHTML = `<div class="icon">${p.icon}</div><div><h3>${p.title}</h3><p>${p.desc}</p></div><div class="check">✓</div>`;
     b.addEventListener("click", () => {
-      state.program = p;
+      state.program = p.id === "custom" ? customProgram() : p;
       progWrap.querySelectorAll(".program").forEach((x) => x.classList.toggle("sel", x === b));
-      $("toDone").disabled = false;
+      customWrap.hidden = p.id !== "custom";
+      if (p.id === "custom") {
+        customText.focus();
+        setTimeout(() => customWrap.scrollIntoView({ behavior: "smooth", block: "center" }), 250);
+      }
+      updateDone();
     });
     progWrap.appendChild(b);
+  });
+  customText.addEventListener("input", () => {
+    if (state.program && state.program.id === "custom") state.program = customProgram();
+    updateDone();
   });
   $("toDone").addEventListener("click", () => {
     renderSummary();
@@ -524,7 +558,7 @@
     $("summary").innerHTML = `
       <div class="summary-row"><div class="ico">📅</div><div><small>Mikor</small><strong>${fmtDate(state.date)}</strong></div></div>
       <div class="summary-row"><div class="ico">🕰️</div><div><small>Hánykor</small><strong>${state.time}</strong></div></div>
-      <div class="summary-row"><div class="ico">${state.program.icon}</div><div><small>Program</small><strong>${state.program.title}</strong></div></div>`;
+      <div class="summary-row"><div class="ico">${state.program.icon}</div><div><small>Program</small><strong>${escapeHtml(state.program.title)}</strong></div></div>`;
   }
 
   function answerText() {
@@ -568,8 +602,8 @@
       "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//dateapp//EN", "BEGIN:VEVENT",
       `UID:${Date.now()}@dateapp`, `DTSTAMP:${stamp}`,
       `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
-      `SUMMARY:💖 Randi: ${state.program.title}`,
-      `DESCRIPTION:${state.program.desc}`,
+      `SUMMARY:💖 Randi: ${icsEsc(state.program.title)}`,
+      `DESCRIPTION:${icsEsc(state.program.desc)}`,
       "BEGIN:VALARM", "TRIGGER:-PT2H", "ACTION:DISPLAY", "DESCRIPTION:Ma randi 💖", "END:VALARM",
       "END:VEVENT", "END:VCALENDAR",
     ].join("\r\n");
@@ -585,6 +619,7 @@
     return d.toLocaleDateString("hu-HU", { month: "long", day: "numeric", weekday: "long" });
   }
   function pad(n) { return String(n).padStart(2, "0"); }
+  function icsEsc(t) { return t.replace(/[\\;,]/g, (c) => "\\" + c).replace(/\r?\n/g, "\\n"); }
   function escapeHtml(s) {
     return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
