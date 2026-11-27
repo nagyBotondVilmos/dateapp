@@ -283,7 +283,7 @@
     <p class="sub" id="programSub">Mi tetszik a legjobban?</p>
     <div class="programs" id="programs"></div>
     <div class="custom-wrap" id="customWrap" hidden>
-      <textarea id="customText" rows="2" maxlength="120" placeholder="pl. bowling, mozi, egy hosszú séta a Duna-parton…" aria-label="Milyen programot szeretnél?"></textarea>
+      <textarea id="customText" rows="2" maxlength="120" placeholder="pl. bowling, mozi, egy hosszú séta a Sétatéren…" aria-label="Milyen programot szeretnél?"></textarea>
     </div>
     <div class="actions">
       <button class="btn ghost" type="button" data-back="step-date" aria-label="Vissza">←</button>
@@ -328,11 +328,14 @@
 
   const PROGRAMS = [
     { id: "gluhwein", icon: "⛸️", title: "Forralt bor és korcsolyázás",
-      desc: "Karácsonyi vásár, egy bögre forralt bor, aztán kéz a kézben a jégen." },
+      desc: "Karácsonyi vásár a Főtéren, egy bögre forralt bor, aztán kéz a kézben a jégen.",
+      place: "Főtér, Kolozsvár" },
     { id: "dinner", icon: "🍷", title: "Romantikus vacsora és kaszinó",
-      desc: "Gyertyafényes vacsora, utána szerencsét próbálunk a rulettasztalnál." },
+      desc: "Gyertyafényes vacsora a kolozsvári belvárosban, utána szerencsét próbálunk a rulettasztalnál.",
+      place: "Kolozsvár, belváros" },
     { id: "stars", icon: "🔭", title: "Csillagnézés teleszkóppal",
-      desc: "Pokróc, forró csoki és közelről a bolygók, valahol egy sötét, csendes helyen." },
+      desc: "Kiautózunk a Feleki-tetőre, messze a város fényeitől. Pokróc, forró csoki és közelről a bolygók.",
+      place: "Feleki-tető, Kolozsvár mellett" },
   ];
   const TIMES = ["16:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
   const MONTHS_AHEAD = 6;
@@ -521,7 +524,7 @@
     desc: "Írd le, mihez lenne kedved – benne vagyok!" };
 
   function customProgram() {
-    return { id: "custom", icon: "✨", title: customText.value.trim(), desc: "Beáta ötlete ✨" };
+    return { id: "custom", icon: "✨", title: customText.value.trim(), desc: "Beáta ötlete ✨", place: "Kolozsvár" };
   }
   function updateDone() {
     $("toDone").disabled = !state.program || (state.program.id === "custom" && !customText.value.trim());
@@ -558,11 +561,12 @@
     $("summary").innerHTML = `
       <div class="summary-row"><div class="ico">📅</div><div><small>Mikor</small><strong>${fmtDate(state.date)}</strong></div></div>
       <div class="summary-row"><div class="ico">🕰️</div><div><small>Hánykor</small><strong>${state.time}</strong></div></div>
-      <div class="summary-row"><div class="ico">${state.program.icon}</div><div><small>Program</small><strong>${escapeHtml(state.program.title)}</strong></div></div>`;
+      <div class="summary-row"><div class="ico">${state.program.icon}</div><div><small>Program</small><strong>${escapeHtml(state.program.title)}</strong></div></div>
+      <div class="summary-row"><div class="ico">📍</div><div><small>Hol</small><strong>${escapeHtml(state.program.place)}</strong></div></div>`;
   }
 
   function answerText() {
-    return `Igen! 💖 Menjünk randizni!\n📅 ${fmtDate(state.date)}, ${state.time}\n${state.program.icon} ${state.program.title}`;
+    return `Igen! 💖 Menjünk randizni!\n📅 ${fmtDate(state.date)}, ${state.time}\n${state.program.icon} ${state.program.title}\n📍 ${state.program.place}`;
   }
 
   $("sendBtn").addEventListener("click", async () => {
@@ -604,6 +608,7 @@
       `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
       `SUMMARY:💖 Randi: ${icsEsc(state.program.title)}`,
       `DESCRIPTION:${icsEsc(state.program.desc)}`,
+      `LOCATION:${icsEsc(state.program.place)}`,
       "BEGIN:VALARM", "TRIGGER:-PT2H", "ACTION:DISPLAY", "DESCRIPTION:Ma randi 💖", "END:VALARM",
       "END:VEVENT", "END:VCALENDAR",
     ].join("\r\n");
